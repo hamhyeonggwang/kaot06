@@ -54,8 +54,10 @@ git push -u origin main
 ```javascript
 const SHEET_NAME = '신청목록';
 const HEADERS = [
-  '타임스탬프', '이름', '소속기관', '연락처', '이메일',
-  '회원유형', '협회아이디', '회원번호', '오전신청', '오후신청', '신청교육목록', '납부예정액'
+  '타임스탬프', '이름', '소속기관', '임상경력', '임상분야',
+  '연락처', '이메일',
+  '회원유형', '협회아이디', '회원번호', '협회회원등급',
+  '오전신청', '오후신청', '신청교육목록', '납부예정액'
 ];
 
 function doPost(e) {
@@ -72,11 +74,14 @@ function doPost(e) {
     data.timestamp,
     data.name,
     data.org,
+    data.experience || '',
+    data.clinicalField || '',
     data.phone,
     data.email,
     data.memberType,
     data.memberLoginId || '',
     data.memberId || '',
+    data.memberGrade || '',
     data.morning,
     data.afternoon,
     data.eduList,
@@ -120,11 +125,14 @@ const GAS_URL = 'https://script.google.com/macros/s/실제배포ID/exec';
 | 타임스탬프 | 신청 일시 |
 | 이름 | 신청자 이름 |
 | 소속기관 | 근무처 |
+| 임상경력 | 연(年) 단위 숫자 |
+| 임상분야 | 아동센터 / 대학병원&종합병원 / 재활병원 / 요양병원 / 복지관&보건소 / 어린이집 / 기타 |
 | 연락처 | 010-xxxx-xxxx |
 | 이메일 | 이메일 주소 |
-| 회원유형 | 정회원 / 준회원 |
+| 회원유형 | 정회원 / 준회원 (보수교육 요금 구분) |
 | 협회아이디 | 협회 홈페이지 로그인 아이디 (필수) |
 | 회원번호 | 협회 회원번호 (필수) |
+| 협회회원등급 | 평생회원 / 정회원 / 준회원 / 인증완료회원 / 기타 |
 | 오전신청 | Y / N |
 | 오후신청 | Y / N |
 | 신청교육목록 | 오전반(발달평가), 오후반(감각통합) |

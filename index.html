@@ -133,6 +133,13 @@ body {
 .form-input::placeholder { color:var(--text-light); }
 .form-input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(37,99,200,.12); }
 .form-input.error { border-color:var(--red); }
+select.form-input {
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%238A99AE' d='M6 8L0 2l1.4-1.4L6 5.2 10.6.6 12 2z'/></svg>");
+  background-repeat:no-repeat; background-position:right 16px center;
+  padding-right:40px; cursor:pointer;
+}
+select.form-input:invalid { color:var(--text-light); }
 .form-hint  { font-size:11px; color:var(--text-light); margin-top:5px; line-height:1.6; }
 .form-error { font-size:11px; color:var(--red); margin-top:5px; display:none; }
 
@@ -327,6 +334,42 @@ body {
 .success-summary-row .s-key { color:rgba(255,255,255,.55); }
 .success-summary-row .s-val { font-weight:700; color:white; font-family:var(--font-head); }
 
+/* SUCCESS PROCESS STEPS */
+.success-process {
+  width:100%; max-width:400px; margin:4px 0 12px; text-align:left;
+  animation:fadeUp .5s ease .55s both;
+}
+.sp-heading {
+  font-family:var(--font-head); font-size:13px; font-weight:800;
+  color:rgba(255,255,255,.85); margin:0 0 10px; letter-spacing:.02em;
+}
+.sp-step {
+  display:flex; gap:12px; padding:14px; border-radius:12px;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14);
+  margin-bottom:8px;
+}
+.sp-num {
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  background:rgba(255,255,255,.18); color:white;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:800; font-family:var(--font-head);
+}
+.sp-body { flex:1; min-width:0; }
+.sp-title { font-size:13px; font-weight:700; color:white; margin-bottom:6px; font-family:var(--font-head); }
+.sp-list { list-style:none; padding:0; margin:0; }
+.sp-list li {
+  position:relative; padding-left:12px;
+  font-size:12px; line-height:1.7; color:rgba(255,255,255,.8);
+  margin-bottom:4px;
+}
+.sp-list li::before {
+  content:''; position:absolute; left:0; top:10px;
+  width:4px; height:4px; border-radius:50%; background:rgba(255,255,255,.45);
+}
+.sp-list li strong { color:white; font-weight:700; }
+.sp-list li.warn { color:#FFDCA8; }
+.sp-list li.warn::before { background:#F4A024; }
+
 .next-edu-banner {
   background:rgba(255,255,255,.1); border:1.5px solid rgba(255,255,255,.2);
   border-radius:16px; padding:16px 20px; margin:8px 0 20px;
@@ -383,9 +426,36 @@ body {
   </div>
   <div class="success-title">신청이 완료되었습니다</div>
   <div class="success-sub">
-    담당자가 확인 후 교육비 납부 안내를<br>입력하신 연락처로 개별 발송해 드립니다.
+    아래 절차에 따라 최종 등록이 진행되오니<br>내용을 꼭 확인해 주세요.
   </div>
   <div class="success-summary" id="successSummary"></div>
+
+  <div class="success-process">
+    <div class="sp-heading">이후 진행 절차</div>
+
+    <div class="sp-step">
+      <div class="sp-num">2</div>
+      <div class="sp-body">
+        <div class="sp-title">교육 대상자 선정 안내</div>
+        <ul class="sp-list">
+          <li>교육 정원에 해당하는 대상자에 한하여 <strong>교육비 납부 링크</strong>가 입력하신 연락처로 개별 발송됩니다.</li>
+          <li>교육 정원에 미해당하는 대상자는 <strong>예비후보자</strong>로 분류되며, 접수 마감 및 최종 교육 대상자 안내 시 예비후보자에게도 별도 메일로 안내됩니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sp-step">
+      <div class="sp-num">3</div>
+      <div class="sp-body">
+        <div class="sp-title">안내받은 납부 링크로 기한 내 교육비 납부</div>
+        <ul class="sp-list">
+          <li>기한: 링크를 받은 날부터 <strong>2일 이내</strong></li>
+          <li class="warn">기한 내 교육비가 납부되지 않을 경우 최종 교육 대상자에서 제외되며, 해당 기회는 예비후보자에게 순차적으로 넘어갑니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <div class="next-edu-banner" onclick="goToSchedule()">
     <div class="neb-label">다음 보수교육 일정 확인</div>
     <div class="neb-title">2026년 하반기 보수교육 일정 보러가기</div>
@@ -411,7 +481,7 @@ body {
     </div>
     <div class="header-badge">2026년 6월 14일 (일) &nbsp;·&nbsp; 대전보건대학교</div>
     <h1 class="header-title">보수교육 신청</h1>
-    <p class="header-sub">기본 정보를 입력하고, 원하는 교육을 선택하세요.<br>오전·오후 모두 신청하실 수 있습니다.</p>
+    <p class="header-sub">기본 정보를 한 번만 입력하고, 원하는 교육을 선택하세요.<br>오전·오후 모두 신청하실 수 있습니다.</p>
   </div>
 
   <!-- 교육 개요 -->
@@ -431,7 +501,7 @@ body {
       </div>
       <div>
         <div class="edu-info-label">학점</div>
-        <div class="edu-info-val">교육당 4학점 (종일 신청 시 8학점)</div>
+        <div class="edu-info-val">교육당 4학점 (4시간)</div>
       </div>
     </div>
     <div class="edu-info-item">
@@ -468,12 +538,25 @@ body {
       </div>
       <div class="agree-text">
         <strong>개인정보 수집·이용에 동의합니다.</strong><br>
-        수집 항목: 이름, 소속기관, 연락처, 이메일, 회원유형, 협회 아이디, 협회 회원번호<br>
+        수집 항목: 이름, 소속기관, 임상경력, 임상분야, 연락처, 이메일, 회원유형, 협회 아이디, 협회 회원번호, 협회 회원등급<br>
         수집 목적: 보수교육 신청 접수 및 교육비 납부 안내<br>
         보유 기간: 교육 종료 후 1년간 보관
       </div>
     </div>
     <div class="form-error" id="agree-err" style="margin-top:-12px;margin-bottom:4px;">개인정보 동의는 필수입니다.</div>
+
+    <div class="agree-wrap" id="confirmWrap" onclick="toggleConfirm()" style="margin-top:12px;">
+      <input type="checkbox" id="confirmCheck" class="agree-checkbox">
+      <div class="agree-box" id="confirmBox">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+      <div class="agree-text">
+        <strong>신청 절차 및 교육비 납부 방식 확인</strong><br>
+        교육 신청 방법과, 본 신청서 제출 후 <strong>교육비를 납부하여야 최종 등록</strong>된다는 것을
+        이해하였습니다.
+      </div>
+    </div>
+    <div class="form-error" id="confirm-err" style="margin-top:-12px;margin-bottom:4px;">신청 절차 확인이 필요합니다.</div>
 
     <div class="footer-note" style="padding:12px 0 0;">
       아래 기본 정보와 교육 선택을 모두 입력하신 뒤 하단의 <strong>신청서 제출하기</strong> 버튼을 눌러주세요.<br>
@@ -495,6 +578,26 @@ body {
       <label class="form-label" for="org">소속기관 <span class="req">*</span></label>
       <input class="form-input" type="text" id="org" placeholder="○○병원 / ○○센터" autocomplete="organization">
       <div class="form-error" id="org-err">소속기관을 입력해주세요.</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="experience">임상경력 <span class="req">*</span></label>
+      <input class="form-input" type="number" id="experience" placeholder="예: 5" min="0" max="60" step="1" inputmode="numeric">
+      <div class="form-hint">작업치료사 임상경력을 연(年) 단위 숫자로 입력해주세요.</div>
+      <div class="form-error" id="experience-err">임상경력을 입력해주세요.</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="clinicalField">임상분야 <span class="req">*</span></label>
+      <select class="form-input" id="clinicalField" required>
+        <option value="" disabled selected>임상분야를 선택해주세요</option>
+        <option value="아동센터">아동센터</option>
+        <option value="대학병원&종합병원">대학병원 / 종합병원</option>
+        <option value="재활병원">재활병원</option>
+        <option value="요양병원">요양병원</option>
+        <option value="복지관&보건소">복지관 / 보건소</option>
+        <option value="어린이집">어린이집</option>
+        <option value="기타">기타</option>
+      </select>
+      <div class="form-error" id="clinicalField-err">임상분야를 선택해주세요.</div>
     </div>
     <div class="form-group">
       <label class="form-label" for="phone">연락처 <span class="req">*</span></label>
@@ -542,6 +645,19 @@ body {
       <input class="form-input" type="text" id="memberId" placeholder="회원번호 입력">
       <div class="form-error" id="memberId-err">협회 회원번호를 입력해주세요.</div>
     </div>
+
+    <div class="form-group">
+      <label class="form-label" for="memberGrade">협회 회원등급 <span class="req">*</span></label>
+      <select class="form-input" id="memberGrade" required>
+        <option value="" disabled selected>협회 회원등급을 선택해주세요</option>
+        <option value="평생회원">평생회원</option>
+        <option value="정회원">정회원</option>
+        <option value="준회원">준회원</option>
+        <option value="인증완료회원">인증완료회원</option>
+        <option value="기타">기타</option>
+      </select>
+      <div class="form-error" id="memberGrade-err">협회 회원등급을 선택해주세요.</div>
+    </div>
   </div>
 
   <!-- STEP 3 -->
@@ -558,7 +674,7 @@ body {
           <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
         </div>
         <div class="edu-card-body">
-          <div class="edu-time-badge morning">오전(4학점) &nbsp; 09:00 – 13:00</div>
+          <div class="edu-time-badge morning">오전반 &nbsp; 09:00 – 13:00</div>
           <div class="edu-card-title">발달평가를 통한 양육환경 조정<br>사례 및 보고서 작성</div>
           <div class="edu-card-sub">Bayley-3, DDST-2, SP-2, PAT-2를 중심으로<br>강사: 유영미, 김영란 (사회성그룹발달센터 꿈, 키우다)</div>
         </div>
@@ -569,7 +685,7 @@ body {
           <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
         </div>
         <div class="edu-card-body">
-          <div class="edu-time-badge afternoon">오후(4학점) &nbsp; 14:00 – 18:00</div>
+          <div class="edu-time-badge afternoon">오후반 &nbsp; 14:00 – 18:00</div>
           <div class="edu-card-title">감각통합 중재에서의 활동분석 적용</div>
           <div class="edu-card-sub">작업 중심 활동분석 개념 및 임상적 중요성<br>강사: 박지훈 (어울림아동발달연구소)</div>
         </div>
@@ -660,6 +776,14 @@ function toggleAgree() {
   document.getElementById('agree-err').style.display = 'none';
 }
 
+function toggleConfirm() {
+  const cb   = document.getElementById('confirmCheck');
+  const wrap = document.getElementById('confirmWrap');
+  cb.checked = !cb.checked;
+  wrap.classList.toggle('checked', cb.checked);
+  document.getElementById('confirm-err').style.display = 'none';
+}
+
 document.getElementById('phone').addEventListener('input', function(){
   let v = this.value.replace(/\D/g,'');
   if (v.length>11) v=v.slice(0,11);
@@ -673,10 +797,13 @@ function validate() {
   [
     {id:'name',          err:'name-err',          check:v=>v.trim().length>=2},
     {id:'org',           err:'org-err',           check:v=>v.trim().length>=2},
+    {id:'experience',    err:'experience-err',    check:v=>v!=='' && !isNaN(+v) && +v>=0 && +v<=60},
+    {id:'clinicalField', err:'clinicalField-err', check:v=>v!==''},
     {id:'phone',         err:'phone-err',         check:v=>/^010-\d{4}-\d{4}$/.test(v)},
     {id:'email',         err:'email-err',         check:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},
     {id:'memberLoginId', err:'memberLoginId-err', check:v=>v.trim().length>=1},
     {id:'memberId',      err:'memberId-err',      check:v=>v.trim().length>=1},
+    {id:'memberGrade',   err:'memberGrade-err',   check:v=>v!==''},
   ].forEach(f=>{
     const el=document.getElementById(f.id), errEl=document.getElementById(f.err);
     if (!f.check(el.value)) { el.classList.add('error'); errEl.style.display='block'; if(ok){el.scrollIntoView({behavior:'smooth',block:'center'});ok=false;} }
@@ -694,6 +821,10 @@ function validate() {
     document.getElementById('agree-err').style.display='block';
     if(ok){document.getElementById('agree-err').scrollIntoView({behavior:'smooth',block:'center'});ok=false;}
   } else document.getElementById('agree-err').style.display='none';
+  if (!document.getElementById('confirmCheck').checked) {
+    document.getElementById('confirm-err').style.display='block';
+    if(ok){document.getElementById('confirm-err').scrollIntoView({behavior:'smooth',block:'center'});ok=false;}
+  } else document.getElementById('confirm-err').style.display='none';
   return ok;
 }
 
@@ -709,11 +840,14 @@ async function submitForm() {
     timestamp:new Date().toLocaleString('ko-KR'),
     name:document.getElementById('name').value.trim(),
     org:document.getElementById('org').value.trim(),
+    experience:document.getElementById('experience').value.trim(),
+    clinicalField:document.getElementById('clinicalField').value,
     phone:document.getElementById('phone').value.trim(),
     email:document.getElementById('email').value.trim(),
     memberType,
     memberLoginId:document.getElementById('memberLoginId').value.trim(),
     memberId:document.getElementById('memberId').value.trim(),
+    memberGrade:document.getElementById('memberGrade').value,
     morning:state.morning?'Y':'N',
     afternoon:state.afternoon?'Y':'N',
     eduList:[state.morning?'오전반(발달평가)':'',state.afternoon?'오후반(감각통합)':''].filter(Boolean).join(', '),
@@ -728,6 +862,7 @@ function showSuccess(data) {
   document.getElementById('successSummary').innerHTML=`
     <div class="success-summary-row"><span class="s-key">이름</span><span class="s-val">${data.name}</span></div>
     <div class="success-summary-row"><span class="s-key">소속</span><span class="s-val">${data.org}</span></div>
+    <div class="success-summary-row"><span class="s-key">임상분야</span><span class="s-val">${data.clinicalField}</span></div>
     <div class="success-summary-row"><span class="s-key">신청 교육</span><span class="s-val">${data.eduList}</span></div>
     <div class="success-summary-row"><span class="s-key">회원 유형</span><span class="s-val">${data.memberType}</span></div>
     <div class="success-summary-row"><span class="s-key">납부 예정액</span><span class="s-val">${data.totalAmt}</span></div>
@@ -739,12 +874,17 @@ function goToSchedule() { window.location.href='https://ksot0418.vercel.app/page
 
 function resetForm() {
   document.getElementById('successScreen').classList.remove('show');
-  ['name','org','phone','email','memberLoginId','memberId'].forEach(id=>document.getElementById(id).value='');
+  ['name','org','experience','phone','email','memberLoginId','memberId']
+    .forEach(id=>document.getElementById(id).value='');
+  ['clinicalField','memberGrade']
+    .forEach(id=>document.getElementById(id).selectedIndex=0);
   document.querySelectorAll('input[name="memberType"]').forEach(r=>r.checked=false);
   state.morning=false; state.afternoon=false; state.memberType=null;
   ['morning','afternoon'].forEach(t=>document.getElementById('card-'+t).classList.remove('selected-'+t));
   document.getElementById('agreeCheck').checked=false;
   document.getElementById('agreeWrap').classList.remove('checked');
+  document.getElementById('confirmCheck').checked=false;
+  document.getElementById('confirmWrap').classList.remove('checked');
   updatePrice();
   window.scrollTo({top:0,behavior:'smooth'});
 }

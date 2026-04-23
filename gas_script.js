@@ -10,8 +10,10 @@
 
 const SHEET_NAME = '신청목록';
 const HEADERS = [
-  '타임스탬프', '이름', '소속기관', '연락처', '이메일',
-  '회원유형', '협회아이디', '회원번호', '오전신청', '오후신청', '신청교육목록', '납부예정액'
+  '타임스탬프', '이름', '소속기관', '임상경력', '임상분야',
+  '연락처', '이메일',
+  '회원유형', '협회아이디', '회원번호', '협회회원등급',
+  '오전신청', '오후신청', '신청교육목록', '납부예정액'
 ];
 
 function doPost(e) {
@@ -35,11 +37,14 @@ function doPost(e) {
       data.timestamp     || new Date().toLocaleString('ko-KR'),
       data.name          || '',
       data.org           || '',
+      data.experience    || '',
+      data.clinicalField || '',
       data.phone         || '',
       data.email         || '',
       data.memberType    || '',
       data.memberLoginId || '',
       data.memberId      || '',
+      data.memberGrade   || '',
       data.morning       || 'N',
       data.afternoon     || 'N',
       data.eduList       || '',
