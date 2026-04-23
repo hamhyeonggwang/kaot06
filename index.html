@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대한작업치료학회 보수교육 신청 | 2026년 6월</title>
+
+<!-- Pretendard -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<!-- Noto Sans KR -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<!-- NanumSquare Neo -->
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:        #2563C8;
+  --blue-light:  #EBF2FF;
+  --blue-mid:    #5B8FE8;
+  --green:       #1FAD7A;
+  --green-light: #E6F8F2;
+  --orange:      #F4A024;
+  --orange-light:#FFF4E0;
+  --red:         #E84040;
+  --navy:        #1A355E;
+  --text:        #1E2A3A;
+  --text-mid:    #4A5568;
+  --text-light:  #8A99AE;
+  --border:      #DDE6F0;
+  --bg:          #F0F6FF;
+  --white:       #FFFFFF;
+  --card-r:      20px;
+  --shadow-sm:   0 2px 8px rgba(37,99,200,0.08);
+  --shadow-md:   0 6px 24px rgba(37,99,200,0.13);
+  --shadow-lg:   0 16px 48px rgba(37,99,200,0.16);
+  --font-body:   'Pretendard', 'Noto Sans KR', sans-serif;
+  --font-head:   'NanumSquareNeo', 'Pretendard', 'Noto Sans KR', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* BG DECO */
+.bg-deco { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.bg-deco span { position:absolute; border-radius:50%; opacity:0.06; animation:floatDeco 8s ease-in-out infinite; }
+.bg-deco span:nth-child(1){ width:320px;height:320px;background:var(--blue);    top:-80px; left:-80px; animation-delay:0s; }
+.bg-deco span:nth-child(2){ width:200px;height:200px;background:var(--green);   top:30%;   right:-60px;animation-delay:2s; }
+.bg-deco span:nth-child(3){ width:140px;height:140px;background:var(--orange);  bottom:20%;left:5%;    animation-delay:4s; }
+.bg-deco span:nth-child(4){ width:100px;height:100px;background:var(--blue-mid);bottom:10%;right:10%;  animation-delay:6s; }
+@keyframes floatDeco{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-20px) scale(1.05);}}
+
+/* LAYOUT */
+.page-wrap { position:relative; z-index:1; max-width:720px; margin:0 auto; padding:24px 16px 80px; }
+
+/* HEADER */
+.site-header { text-align:center; padding:40px 24px 32px; animation:fadeDown .6s ease both; }
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+
+.logo-row { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:16px; }
+.logo-icon {
+  width:44px; height:44px; background:var(--blue); border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 12px rgba(37,99,200,.3);
+}
+.logo-icon svg { width:26px; height:26px; fill:white; }
+.logo-text { font-family:var(--font-head); font-size:18px; font-weight:800; color:var(--navy); line-height:1.3; }
+.logo-text small { display:block; font-size:11px; font-weight:400; color:var(--text-light); font-family:var(--font-body); }
+
+.header-badge {
+  display:inline-block; background:var(--orange-light); color:var(--orange);
+  font-size:12px; font-weight:700; padding:4px 14px; border-radius:20px;
+  border:1.5px solid var(--orange); margin-bottom:14px; letter-spacing:.04em;
+}
+.header-title { font-family:var(--font-head); font-size:clamp(24px,5vw,32px); font-weight:900; color:var(--navy); line-height:1.3; margin-bottom:8px; }
+.header-sub   { font-size:13px; color:var(--text-light); line-height:1.7; }
+
+/* CARD */
+.card {
+  background:var(--white); border-radius:var(--card-r);
+  padding:28px; box-shadow:var(--shadow-sm); border:1.5px solid var(--border);
+  margin-bottom:16px; animation:fadeUp .5s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.card:nth-child(2){animation-delay:.1s;} .card:nth-child(3){animation-delay:.2s;} .card:nth-child(4){animation-delay:.3s;}
+
+.card-title {
+  display:flex; align-items:center; gap:10px;
+  font-size:15px; font-weight:700; color:var(--navy); margin-bottom:20px;
+  font-family:var(--font-head);
+}
+.card-title .step-num {
+  width:28px; height:28px; border-radius:50%; background:var(--blue); color:white;
+  display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:700; flex-shrink:0; font-family:var(--font-body);
+}
+
+/* INFO STRIP */
+.edu-info-strip {
+  background:linear-gradient(135deg,var(--navy) 0%,#2254A4 100%);
+  border-radius:var(--card-r); padding:20px 24px; margin-bottom:16px;
+  color:white; display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  animation:fadeUp .5s ease both;
+}
+.edu-info-item { display:flex; align-items:center; gap:10px; }
+.edu-info-icon-wrap {
+  width:32px; height:32px; border-radius:8px;
+  background:rgba(255,255,255,.15);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.edu-info-icon-wrap svg { width:16px; height:16px; fill:white; opacity:.9; }
+.edu-info-label { font-size:10px; opacity:.6; margin-bottom:2px; letter-spacing:.04em; }
+.edu-info-val   { font-size:13px; font-weight:600; }
+
+/* FORM */
+.form-group { margin-bottom:18px; }
+.form-label { display:block; font-size:13px; font-weight:700; color:var(--text); margin-bottom:7px; font-family:var(--font-head); }
+.form-label .req { color:var(--red); margin-left:2px; }
+.form-label .opt { font-size:11px; color:var(--text-light); font-weight:400; margin-left:4px; font-family:var(--font-body); }
+.form-input {
+  width:100%; padding:12px 16px; border:1.5px solid var(--border); border-radius:12px;
+  font-size:14px; font-family:var(--font-body); color:var(--text); background:var(--white);
+  outline:none; transition:border-color .2s,box-shadow .2s;
+}
+.form-input::placeholder { color:var(--text-light); }
+.form-input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(37,99,200,.12); }
+.form-input.error { border-color:var(--red); }
+.form-hint  { font-size:11px; color:var(--text-light); margin-top:5px; line-height:1.6; }
+.form-error { font-size:11px; color:var(--red); margin-top:5px; display:none; }
+
+/* MEMBER TYPE */
+.member-type-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.member-radio { display:none; }
+.member-label {
+  display:flex; flex-direction:column; align-items:center;
+  padding:16px 12px; border-radius:14px; border:2px solid var(--border);
+  cursor:pointer; transition:all .2s; text-align:center; user-select:none;
+}
+.member-label:hover { border-color:var(--blue-mid); background:var(--blue-light); }
+.member-radio:checked + .member-label { border-color:var(--blue); background:var(--blue-light); box-shadow:0 0 0 3px rgba(37,99,200,.15); }
+
+.member-badge {
+  padding:4px 10px; border-radius:8px;
+  background:var(--blue-light); color:var(--blue);
+  font-size:11px; font-weight:800; margin-bottom:8px;
+  font-family:var(--font-head); transition:background .2s,color .2s;
+}
+.member-radio:checked + .member-label .member-badge { background:var(--blue); color:white; }
+.member-name  { font-size:14px; font-weight:700; color:var(--navy); font-family:var(--font-head); }
+.member-price { font-size:11px; color:var(--text-light); margin-top:3px; transition:color .2s; }
+.member-radio:checked + .member-label .member-price { color:var(--blue); font-weight:600; }
+
+/* EDU SELECT */
+.edu-select-grid { display:flex; flex-direction:column; gap:12px; }
+.edu-card-label {
+  display:flex; gap:14px; align-items:flex-start;
+  padding:18px 20px; border-radius:16px; border:2px solid var(--border);
+  cursor:pointer; transition:all .25s; user-select:none;
+  position:relative; overflow:hidden;
+}
+.edu-card-label::before { content:''; position:absolute; inset:0; opacity:0; transition:opacity .25s; }
+.edu-card-label.morning::before   { background:linear-gradient(135deg,var(--blue-light),transparent); }
+.edu-card-label.afternoon::before { background:linear-gradient(135deg,var(--green-light),transparent); }
+.edu-card-label:hover { border-color:var(--blue-mid); transform:translateY(-1px); box-shadow:var(--shadow-sm); }
+.edu-card-label.selected-morning   { border-color:var(--blue);  box-shadow:0 0 0 3px rgba(37,99,200,.15); }
+.edu-card-label.selected-morning::before   { opacity:1; }
+.edu-card-label.selected-afternoon { border-color:var(--green); box-shadow:0 0 0 3px rgba(31,173,122,.15); }
+.edu-card-label.selected-afternoon::before { opacity:1; }
+
+.edu-check-circle {
+  width:24px; height:24px; border-radius:50%; border:2px solid var(--border);
+  flex-shrink:0; margin-top:2px; display:flex; align-items:center; justify-content:center;
+  transition:all .2s; background:white;
+}
+.edu-card-label.selected-morning   .edu-check-circle { background:var(--blue);  border-color:var(--blue); }
+.edu-card-label.selected-afternoon .edu-check-circle { background:var(--green); border-color:var(--green); }
+.edu-check-circle svg { display:none; width:13px; height:13px; fill:white; }
+.edu-card-label.selected-morning   .edu-check-circle svg,
+.edu-card-label.selected-afternoon .edu-check-circle svg { display:block; }
+
+.edu-card-body { flex:1; position:relative; z-index:1; }
+.edu-time-badge {
+  display:inline-flex; align-items:center; gap:4px;
+  font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; margin-bottom:6px;
+  letter-spacing:.03em;
+}
+.edu-time-badge.morning   { background:var(--blue-light);  color:var(--blue); }
+.edu-time-badge.afternoon { background:var(--green-light); color:var(--green); }
+.edu-card-title { font-size:14px; font-weight:700; color:var(--navy); line-height:1.5; margin-bottom:4px; font-family:var(--font-head); }
+.edu-card-sub   { font-size:11px; color:var(--text-light); line-height:1.6; }
+
+/* PRICE */
+.price-summary {
+  background:linear-gradient(135deg,#F0F6FF 0%,#E6F8F2 100%);
+  border-radius:16px; padding:20px 24px; border:2px solid var(--border);
+  margin-top:20px; transition:all .3s;
+}
+.price-summary.active { border-color:var(--blue); box-shadow:var(--shadow-md); }
+.price-rows { margin-bottom:14px; }
+.price-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:6px 0; font-size:13px; color:var(--text-mid);
+  border-bottom:1px dashed var(--border);
+}
+.price-row:last-child { border-bottom:none; }
+.price-row .row-label { display:flex; align-items:center; gap:7px; }
+.price-row .dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.price-row .dot.blue  { background:var(--blue); }
+.price-row .dot.green { background:var(--green); }
+.price-total-row { display:flex; justify-content:space-between; align-items:center; padding-top:14px; border-top:1.5px solid var(--border); }
+.price-total-label { font-size:14px; font-weight:700; color:var(--navy); display:flex; align-items:center; gap:8px; font-family:var(--font-head); }
+.price-total-label .p-badge { font-size:10px; background:var(--navy); color:white; padding:2px 8px; border-radius:10px; font-weight:700; }
+.price-total-amount { font-size:26px; font-weight:900; color:var(--blue); font-family:var(--font-head); transition:all .3s; }
+.price-notice { margin-top:12px; padding:10px 14px; background:var(--blue-light); border-radius:10px; font-size:11px; color:var(--blue); line-height:1.6; }
+.price-empty  { text-align:center; padding:14px 0; color:var(--text-light); font-size:13px; }
+
+/* AGREE */
+.agree-wrap {
+  display:flex; gap:12px; align-items:flex-start;
+  padding:16px; background:#f8fafd; border-radius:12px;
+  border:1.5px solid var(--border); margin-bottom:20px;
+  cursor:pointer; transition:border-color .2s;
+}
+.agree-wrap.checked { border-color:var(--blue); }
+.agree-checkbox { display:none; }
+.agree-box {
+  width:22px; height:22px; border-radius:6px; border:2px solid var(--border);
+  flex-shrink:0; margin-top:1px;
+  display:flex; align-items:center; justify-content:center;
+  background:white; transition:all .2s;
+}
+.agree-box svg { display:none; width:13px; height:13px; fill:white; }
+.agree-wrap.checked .agree-box { background:var(--blue); border-color:var(--blue); }
+.agree-wrap.checked .agree-box svg { display:block; }
+.agree-text { font-size:12px; color:var(--text-mid); line-height:1.7; }
+.agree-text strong { color:var(--navy); font-family:var(--font-head); }
+
+/* SUBMIT */
+.submit-btn {
+  width:100%; padding:18px;
+  background:linear-gradient(135deg,var(--blue) 0%,#1A4DB8 100%);
+  color:white; border:none; border-radius:16px;
+  font-size:16px; font-weight:700; font-family:var(--font-head);
+  cursor:pointer; transition:all .25s;
+  box-shadow:0 6px 20px rgba(37,99,200,.35);
+  letter-spacing:.04em;
+}
+.submit-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 10px 28px rgba(37,99,200,.45); }
+.submit-btn:active:not(:disabled){ transform:translateY(0); }
+.submit-btn:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+.submit-btn.loading::after {
+  content:''; display:inline-block; width:14px; height:14px;
+  border:2px solid rgba(255,255,255,.4); border-top-color:white; border-radius:50%;
+  animation:spin .7s linear infinite; margin-left:10px; vertical-align:middle;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* SUCCESS */
+.success-screen {
+  display:none; position:fixed; inset:0; z-index:100;
+  background:linear-gradient(160deg,var(--navy) 0%,#1A6A4A 100%);
+  flex-direction:column; align-items:center; justify-content:center;
+  padding:32px; text-align:center; animation:fadeIn .4s ease; overflow-y:auto;
+}
+.success-screen.show { display:flex; }
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+.success-icon {
+  width:80px; height:80px; border-radius:50%;
+  background:rgba(255,255,255,.15);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:20px;
+  animation:popIn .5s cubic-bezier(.34,1.56,.64,1) .2s both;
+}
+.success-icon svg { width:40px; height:40px; fill:white; }
+@keyframes popIn{from{transform:scale(0) rotate(-20deg);}to{transform:scale(1) rotate(0);}}
+
+.success-title { font-family:var(--font-head); font-size:24px; font-weight:900; color:white; margin-bottom:8px; animation:fadeUp .5s ease .3s both; }
+.success-sub   { font-size:14px; color:rgba(255,255,255,.7); line-height:1.7; margin-bottom:6px; animation:fadeUp .5s ease .4s both; }
+
+.success-summary {
+  background:rgba(255,255,255,.12); border-radius:16px; padding:18px 24px;
+  margin:20px 0; width:100%; max-width:400px; animation:fadeUp .5s ease .5s both;
+}
+.success-summary-row { display:flex; justify-content:space-between; padding:6px 0; font-size:13px; border-bottom:1px solid rgba(255,255,255,.1); }
+.success-summary-row:last-child { border-bottom:none; }
+.success-summary-row .s-key { color:rgba(255,255,255,.55); }
+.success-summary-row .s-val { font-weight:700; color:white; font-family:var(--font-head); }
+
+.next-edu-banner {
+  background:rgba(255,255,255,.1); border:1.5px solid rgba(255,255,255,.2);
+  border-radius:16px; padding:16px 20px; margin:8px 0 20px;
+  width:100%; max-width:400px; cursor:pointer;
+  transition:all .2s; animation:fadeUp .5s ease .6s both; text-align:left;
+}
+.next-edu-banner:hover { background:rgba(255,255,255,.18); transform:translateY(-2px); }
+.neb-label { font-size:10px; color:rgba(255,255,255,.5); margin-bottom:5px; letter-spacing:.08em; }
+.neb-title { font-size:14px; font-weight:700; color:white; margin-bottom:3px; font-family:var(--font-head); }
+.neb-arrow { font-size:12px; color:rgba(255,255,255,.55); }
+
+.success-go-btn {
+  width:100%; max-width:400px; padding:16px; border-radius:14px;
+  background:white; color:var(--navy); font-size:15px; font-weight:700; font-family:var(--font-head);
+  border:none; cursor:pointer; box-shadow:0 6px 20px rgba(0,0,0,.2);
+  transition:all .2s; animation:fadeUp .5s ease .7s both;
+}
+.success-go-btn:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.25); }
+.success-back-btn {
+  margin-top:12px; background:transparent; border:none;
+  color:rgba(255,255,255,.5); font-size:13px; cursor:pointer;
+  font-family:var(--font-body); animation:fadeUp .5s ease .8s both;
+}
+
+/* FOOTER */
+.footer-note { text-align:center; padding:20px; font-size:12px; color:var(--text-light); line-height:1.9; }
+.footer-note a { color:var(--blue); text-decoration:none; }
+
+/* TOAST */
+.toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(100px);
+  background:var(--red); color:white; padding:12px 24px; border-radius:12px;
+  font-size:13px; font-weight:600; box-shadow:var(--shadow-lg);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1); z-index:200; white-space:nowrap;
+}
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+@media(max-width:480px){
+  .page-wrap { padding:16px 12px 60px; }
+  .card { padding:20px 16px; }
+  .edu-info-strip { grid-template-columns:1fr; }
+  .success-title { font-size:20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-deco"><span></span><span></span><span></span><span></span></div>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">
+    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+  </div>
+  <div class="success-title">신청이 완료되었습니다</div>
+  <div class="success-sub">
+    담당자가 확인 후 교육비 납부 안내를<br>입력하신 연락처로 개별 발송해 드립니다.
+  </div>
+  <div class="success-summary" id="successSummary"></div>
+  <div class="next-edu-banner" onclick="goToSchedule()">
+    <div class="neb-label">다음 보수교육 일정 확인</div>
+    <div class="neb-title">2026년 하반기 보수교육 일정 보러가기</div>
+    <div class="neb-arrow">대한작업치료학회 보수교육 스케줄 페이지 &rarr;</div>
+  </div>
+  <button class="success-go-btn" onclick="goToSchedule()">전체 보수교육 일정 확인하기</button>
+  <button class="success-back-btn" onclick="resetForm()">다른 분 신청하기</button>
+</div>
+
+<!-- MAIN -->
+<div class="page-wrap">
+
+  <!-- 헤더 -->
+  <div class="site-header">
+    <div class="logo-row">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+      </div>
+      <div class="logo-text">
+        대한작업치료학회
+        <small>The Korean Society of Occupational Therapy</small>
+      </div>
+    </div>
+    <div class="header-badge">2026년 6월 14일 (일) &nbsp;·&nbsp; 대전보건대학교</div>
+    <h1 class="header-title">보수교육 신청</h1>
+    <p class="header-sub">기본 정보를 한 번만 입력하고, 원하는 교육을 선택하세요.<br>오전·오후 모두 신청하실 수 있습니다.</p>
+  </div>
+
+  <!-- 교육 개요 -->
+  <div class="edu-info-strip">
+    <div class="edu-info-item">
+      <div class="edu-info-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      </div>
+      <div>
+        <div class="edu-info-label">장소</div>
+        <div class="edu-info-val">대전보건대학교 8동 3층 8323호</div>
+      </div>
+    </div>
+    <div class="edu-info-item">
+      <div class="edu-info-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+      </div>
+      <div>
+        <div class="edu-info-label">학점</div>
+        <div class="edu-info-val">교육당 4학점 (4시간)</div>
+      </div>
+    </div>
+    <div class="edu-info-item">
+      <div class="edu-info-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+      </div>
+      <div>
+        <div class="edu-info-label">신청 마감</div>
+        <div class="edu-info-val">2026. 5. 27 (수) · 선착순 80명</div>
+      </div>
+    </div>
+    <div class="edu-info-item">
+      <div class="edu-info-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <div>
+        <div class="edu-info-label">문의</div>
+        <div class="edu-info-val">ksotoffice@naver.com</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="card">
+    <div class="card-title"><div class="step-num">1</div>기본 정보 입력</div>
+
+    <div class="form-group">
+      <label class="form-label" for="name">이름 <span class="req">*</span></label>
+      <input class="form-input" type="text" id="name" placeholder="홍길동" autocomplete="name">
+      <div class="form-error" id="name-err">이름을 입력해주세요.</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="org">소속기관 <span class="req">*</span></label>
+      <input class="form-input" type="text" id="org" placeholder="○○병원 / ○○센터" autocomplete="organization">
+      <div class="form-error" id="org-err">소속기관을 입력해주세요.</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="phone">연락처 <span class="req">*</span></label>
+      <input class="form-input" type="tel" id="phone" placeholder="010-0000-0000" autocomplete="tel">
+      <div class="form-hint">교육비 납부 안내를 해당 번호로 발송합니다.</div>
+      <div class="form-error" id="phone-err">연락처를 올바르게 입력해주세요.</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="email">이메일 <span class="req">*</span></label>
+      <input class="form-input" type="email" id="email" placeholder="example@email.com" autocomplete="email">
+      <div class="form-error" id="email-err">이메일을 올바르게 입력해주세요.</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">회원 유형 <span class="req">*</span></label>
+      <div class="member-type-grid">
+        <input type="radio" name="memberType" id="m-regular" class="member-radio" value="정회원" onchange="updatePrice()">
+        <label for="m-regular" class="member-label">
+          <span class="member-badge">정회원</span>
+          <span class="member-name">정회원</span>
+          <span class="member-price">교육당 60,000원</span>
+        </label>
+        <input type="radio" name="memberType" id="m-associate" class="member-radio" value="준회원" onchange="updatePrice()">
+        <label for="m-associate" class="member-label">
+          <span class="member-badge" style="background:var(--green-light);color:var(--green);">준회원</span>
+          <span class="member-name">준회원</span>
+          <span class="member-price">교육당 76,000원</span>
+        </label>
+      </div>
+      <div class="form-hint">
+        정회원: 학회 연회비 납부 또는 협회 정회원/평생회원<br>
+        준회원: 학회 연회비 미납 또는 협회 준회원/인증완료회원
+      </div>
+      <div class="form-error" id="member-err">회원 유형을 선택해주세요.</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="memberId">협회 회원번호 <span class="opt">(선택)</span></label>
+      <input class="form-input" type="text" id="memberId" placeholder="회원번호 입력">
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="step-num" style="background:var(--green);">2</div>
+      교육 선택
+      <span style="font-size:12px;color:var(--text-light);font-weight:400;margin-left:2px;">중복 선택 가능</span>
+    </div>
+
+    <div class="edu-select-grid">
+      <div class="edu-card-label morning" id="card-morning" onclick="toggleEdu('morning')">
+        <div class="edu-check-circle">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="edu-card-body">
+          <div class="edu-time-badge morning">오전반 &nbsp; 09:00 – 13:00</div>
+          <div class="edu-card-title">발달평가를 통한 양육환경 조정<br>사례 및 보고서 작성</div>
+          <div class="edu-card-sub">Bayley-3, DDST-2, SP-2, PAT-2를 중심으로<br>강사: 유영미, 김영란 (사회성그룹발달센터 꿈, 키우다)</div>
+        </div>
+      </div>
+
+      <div class="edu-card-label afternoon" id="card-afternoon" onclick="toggleEdu('afternoon')">
+        <div class="edu-check-circle">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="edu-card-body">
+          <div class="edu-time-badge afternoon">오후반 &nbsp; 14:00 – 18:00</div>
+          <div class="edu-card-title">감각통합 중재에서의 활동분석 적용</div>
+          <div class="edu-card-sub">작업 중심 활동분석 개념 및 임상적 중요성<br>강사: 박지훈 (어울림아동발달연구소)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-error" id="edu-err" style="display:none;margin-top:8px;">하나 이상의 교육을 선택해주세요.</div>
+
+    <div class="price-summary" id="priceSummary">
+      <div class="price-empty" id="priceEmpty">회원 유형과 교육을 선택하면<br>납부 예정 금액이 자동으로 계산됩니다.</div>
+      <div id="priceContent" style="display:none;">
+        <div class="price-rows" id="priceRows"></div>
+        <div class="price-total-row">
+          <div class="price-total-label">납부 예정액 <span class="p-badge" id="priceBadge"></span></div>
+          <div class="price-total-amount" id="priceTotal">0원</div>
+        </div>
+        <div class="price-notice">납부 계좌는 신청 접수 후 담당자가 개별 안내해 드립니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="card">
+    <div class="card-title">
+      <div class="step-num" style="background:var(--orange);">3</div>
+      개인정보 동의 및 제출
+    </div>
+
+    <div class="agree-wrap" id="agreeWrap" onclick="toggleAgree()">
+      <input type="checkbox" id="agreeCheck" class="agree-checkbox">
+      <div class="agree-box" id="agreeBox">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+      <div class="agree-text">
+        <strong>개인정보 수집·이용에 동의합니다.</strong><br>
+        수집 항목: 이름, 소속기관, 연락처, 이메일, 회원번호<br>
+        수집 목적: 보수교육 신청 접수 및 교육비 납부 안내<br>
+        보유 기간: 교육 종료 후 1년간 보관
+      </div>
+    </div>
+    <div class="form-error" id="agree-err" style="margin-top:-12px;margin-bottom:14px;">개인정보 동의는 필수입니다.</div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitForm()">신청서 제출하기</button>
+
+    <div class="footer-note">
+      제출 후 담당자가 확인하여 교육비 납부 계좌를 개별 발송합니다.<br>
+      문의: <a href="mailto:ksotoffice@naver.com">ksotoffice@naver.com</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const state = { morning:false, afternoon:false, memberType:null };
+const PRICE  = { '정회원':60000, '준회원':76000 };
+const GAS_URL = 'https://script.google.com/macros/s/YOUR_GAS_DEPLOYMENT_ID/exec';
+
+function toggleEdu(type) {
+  state[type] = !state[type];
+  const card = document.getElementById('card-' + type);
+  if (state[type]) card.classList.add('selected-' + type);
+  else             card.classList.remove('selected-' + type);
+  document.getElementById('edu-err').style.display = 'none';
+  updatePrice();
+}
+
+function updatePrice() {
+  const memberEl = document.querySelector('input[name="memberType"]:checked');
+  state.memberType = memberEl ? memberEl.value : null;
+  const empty   = document.getElementById('priceEmpty');
+  const content = document.getElementById('priceContent');
+  const summary = document.getElementById('priceSummary');
+
+  if (!state.memberType || (!state.morning && !state.afternoon)) {
+    summary.classList.remove('active'); empty.style.display='block'; content.style.display='none'; return;
+  }
+
+  const unit = PRICE[state.memberType];
+  let rows='', total=0;
+  if (state.morning)   { rows+=`<div class="price-row"><span class="row-label"><span class="dot blue"></span>오전반 — 발달평가</span><span>${unit.toLocaleString()}원</span></div>`; total+=unit; }
+  if (state.afternoon) { rows+=`<div class="price-row"><span class="row-label"><span class="dot green"></span>오후반 — 감각통합</span><span>${unit.toLocaleString()}원</span></div>`; total+=unit; }
+  rows+=`<div class="price-row" style="color:var(--text-light);font-size:12px;"><span class="row-label">회원 유형</span><span>${state.memberType}</span></div>`;
+
+  document.getElementById('priceRows').innerHTML = rows;
+  document.getElementById('priceTotal').textContent = total.toLocaleString()+'원';
+  document.getElementById('priceBadge').textContent = (state.morning&&state.afternoon)?'종일반':(state.morning?'오전반':'오후반');
+  summary.classList.add('active'); empty.style.display='none'; content.style.display='block';
+}
+
+function toggleAgree() {
+  const cb   = document.getElementById('agreeCheck');
+  const wrap = document.getElementById('agreeWrap');
+  cb.checked = !cb.checked;
+  wrap.classList.toggle('checked', cb.checked);
+  document.getElementById('agree-err').style.display = 'none';
+}
+
+document.getElementById('phone').addEventListener('input', function(){
+  let v = this.value.replace(/\D/g,'');
+  if (v.length>11) v=v.slice(0,11);
+  if (v.length>7)      v=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7);
+  else if (v.length>3) v=v.slice(0,3)+'-'+v.slice(3);
+  this.value=v;
+});
+
+function validate() {
+  let ok=true;
+  [
+    {id:'name', err:'name-err', check:v=>v.trim().length>=2},
+    {id:'org',  err:'org-err',  check:v=>v.trim().length>=2},
+    {id:'phone',err:'phone-err',check:v=>/^010-\d{4}-\d{4}$/.test(v)},
+    {id:'email',err:'email-err',check:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},
+  ].forEach(f=>{
+    const el=document.getElementById(f.id), errEl=document.getElementById(f.err);
+    if (!f.check(el.value)) { el.classList.add('error'); errEl.style.display='block'; if(ok){el.scrollIntoView({behavior:'smooth',block:'center'});ok=false;} }
+    else                    { el.classList.remove('error'); errEl.style.display='none'; }
+  });
+  if (!document.querySelector('input[name="memberType"]:checked')) {
+    document.getElementById('member-err').style.display='block';
+    if(ok){document.getElementById('member-err').scrollIntoView({behavior:'smooth',block:'center'});ok=false;}
+  } else document.getElementById('member-err').style.display='none';
+  if (!state.morning&&!state.afternoon) {
+    document.getElementById('edu-err').style.display='block';
+    if(ok){document.getElementById('edu-err').scrollIntoView({behavior:'smooth',block:'center'});ok=false;}
+  } else document.getElementById('edu-err').style.display='none';
+  if (!document.getElementById('agreeCheck').checked) {
+    document.getElementById('agree-err').style.display='block';
+    if(ok){document.getElementById('agree-err').scrollIntoView({behavior:'smooth',block:'center'});ok=false;}
+  } else document.getElementById('agree-err').style.display='none';
+  return ok;
+}
+
+async function submitForm() {
+  if (!validate()) return;
+  const btn=document.getElementById('submitBtn');
+  btn.classList.add('loading'); btn.disabled=true; btn.textContent='제출 중...';
+
+  const memberType=document.querySelector('input[name="memberType"]:checked').value;
+  const unit=PRICE[memberType];
+  const totalAmt=(state.morning?unit:0)+(state.afternoon?unit:0);
+  const payload={
+    timestamp:new Date().toLocaleString('ko-KR'),
+    name:document.getElementById('name').value.trim(),
+    org:document.getElementById('org').value.trim(),
+    phone:document.getElementById('phone').value.trim(),
+    email:document.getElementById('email').value.trim(),
+    memberType,
+    memberId:document.getElementById('memberId').value.trim(),
+    morning:state.morning?'Y':'N',
+    afternoon:state.afternoon?'Y':'N',
+    eduList:[state.morning?'오전반(발달평가)':'',state.afternoon?'오후반(감각통합)':''].filter(Boolean).join(', '),
+    totalAmt:totalAmt.toLocaleString()+'원',
+  };
+  try { await fetch(GAS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); } catch(e){}
+  btn.classList.remove('loading'); btn.disabled=false; btn.textContent='신청서 제출하기';
+  showSuccess(payload);
+}
+
+function showSuccess(data) {
+  document.getElementById('successSummary').innerHTML=`
+    <div class="success-summary-row"><span class="s-key">이름</span><span class="s-val">${data.name}</span></div>
+    <div class="success-summary-row"><span class="s-key">소속</span><span class="s-val">${data.org}</span></div>
+    <div class="success-summary-row"><span class="s-key">신청 교육</span><span class="s-val">${data.eduList}</span></div>
+    <div class="success-summary-row"><span class="s-key">회원 유형</span><span class="s-val">${data.memberType}</span></div>
+    <div class="success-summary-row"><span class="s-key">납부 예정액</span><span class="s-val">${data.totalAmt}</span></div>
+  `;
+  document.getElementById('successScreen').classList.add('show');
+}
+
+function goToSchedule() { window.location.href='https://ksot0418.vercel.app/pages/education.html#ce-schedule'; }
+
+function resetForm() {
+  document.getElementById('successScreen').classList.remove('show');
+  ['name','org','phone','email','memberId'].forEach(id=>document.getElementById(id).value='');
+  document.querySelectorAll('input[name="memberType"]').forEach(r=>r.checked=false);
+  state.morning=false; state.afternoon=false; state.memberType=null;
+  ['morning','afternoon'].forEach(t=>document.getElementById('card-'+t).classList.remove('selected-'+t));
+  document.getElementById('agreeCheck').checked=false;
+  document.getElementById('agreeWrap').classList.remove('checked');
+  updatePrice();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
