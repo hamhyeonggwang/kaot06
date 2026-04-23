@@ -55,7 +55,7 @@ git push -u origin main
 const SHEET_NAME = '신청목록';
 const HEADERS = [
   '타임스탬프', '이름', '소속기관', '연락처', '이메일',
-  '회원유형', '회원번호', '오전신청', '오후신청', '신청교육목록', '납부예정액'
+  '회원유형', '협회아이디', '회원번호', '오전신청', '오후신청', '신청교육목록', '납부예정액'
 ];
 
 function doPost(e) {
@@ -75,6 +75,7 @@ function doPost(e) {
     data.phone,
     data.email,
     data.memberType,
+    data.memberLoginId || '',
     data.memberId || '',
     data.morning,
     data.afternoon,
@@ -122,7 +123,8 @@ const GAS_URL = 'https://script.google.com/macros/s/실제배포ID/exec';
 | 연락처 | 010-xxxx-xxxx |
 | 이메일 | 이메일 주소 |
 | 회원유형 | 정회원 / 준회원 |
-| 회원번호 | 협회 회원번호 (선택) |
+| 협회아이디 | 협회 홈페이지 로그인 아이디 (필수) |
+| 회원번호 | 협회 회원번호 (필수) |
 | 오전신청 | Y / N |
 | 오후신청 | Y / N |
 | 신청교육목록 | 오전반(발달평가), 오후반(감각통합) |

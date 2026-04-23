@@ -11,7 +11,7 @@
 const SHEET_NAME = '신청목록';
 const HEADERS = [
   '타임스탬프', '이름', '소속기관', '연락처', '이메일',
-  '회원유형', '회원번호', '오전신청', '오후신청', '신청교육목록', '납부예정액'
+  '회원유형', '협회아이디', '회원번호', '오전신청', '오후신청', '신청교육목록', '납부예정액'
 ];
 
 function doPost(e) {
@@ -32,17 +32,18 @@ function doPost(e) {
     const data = JSON.parse(e.postData.contents);
 
     sheet.appendRow([
-      data.timestamp  || new Date().toLocaleString('ko-KR'),
-      data.name       || '',
-      data.org        || '',
-      data.phone      || '',
-      data.email      || '',
-      data.memberType || '',
-      data.memberId   || '',
-      data.morning    || 'N',
-      data.afternoon  || 'N',
-      data.eduList    || '',
-      data.totalAmt   || '',
+      data.timestamp     || new Date().toLocaleString('ko-KR'),
+      data.name          || '',
+      data.org           || '',
+      data.phone         || '',
+      data.email         || '',
+      data.memberType    || '',
+      data.memberLoginId || '',
+      data.memberId      || '',
+      data.morning       || 'N',
+      data.afternoon     || 'N',
+      data.eduList       || '',
+      data.totalAmt      || '',
     ]);
 
     // 중복 신청 체크 (같은 이메일+교육 조합)

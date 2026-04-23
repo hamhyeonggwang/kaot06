@@ -59,7 +59,7 @@ body {
 @keyframes floatDeco{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-20px) scale(1.05);}}
 
 /* LAYOUT */
-.page-wrap { position:relative; z-index:1; max-width:720px; margin:0 auto; padding:24px 16px 80px; }
+.page-wrap { position:relative; z-index:1; max-width:720px; margin:0 auto; padding:24px 16px 140px; }
 
 /* HEADER */
 .site-header { text-align:center; padding:40px 24px 32px; animation:fadeDown .6s ease both; }
@@ -263,6 +263,38 @@ body {
 }
 @keyframes spin{to{transform:rotate(360deg);}}
 
+/* STICKY SUBMIT FOOTER */
+.submit-footer {
+  position:fixed; left:0; right:0; bottom:0; z-index:80;
+  background:rgba(255,255,255,.92); backdrop-filter:saturate(140%) blur(10px);
+  -webkit-backdrop-filter:saturate(140%) blur(10px);
+  border-top:1px solid var(--border); box-shadow:0 -8px 24px rgba(37,99,200,.08);
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  animation:sfSlideUp .35s ease both;
+}
+@keyframes sfSlideUp { from{transform:translateY(100%);opacity:0;} to{transform:translateY(0);opacity:1;} }
+.submit-footer-inner {
+  max-width:720px; margin:0 auto;
+  display:flex; align-items:center; gap:12px;
+}
+.submit-footer-meta { flex:1; min-width:0; }
+.sf-label { font-size:11px; color:var(--text-light); letter-spacing:.04em; margin-bottom:2px; }
+.sf-amount {
+  font-family:var(--font-head); font-size:18px; font-weight:900; color:var(--navy);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.sf-amount.placeholder { font-size:12px; font-weight:500; color:var(--text-light); font-family:var(--font-body); }
+.sf-amount.active { color:var(--blue); }
+.submit-footer .submit-btn {
+  width:auto; flex-shrink:0; padding:14px 22px; font-size:15px; border-radius:14px;
+  box-shadow:0 4px 14px rgba(37,99,200,.3);
+}
+@media(max-width:480px){
+  .submit-footer-inner { gap:10px; }
+  .submit-footer .submit-btn { padding:13px 16px; font-size:14px; }
+  .sf-amount { font-size:16px; }
+}
+
 /* SUCCESS */
 .success-screen {
   display:none; position:fixed; inset:0; z-index:100;
@@ -407,8 +439,8 @@ body {
         <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
       </div>
       <div>
-        <div class="edu-info-label">신청 마감</div>
-        <div class="edu-info-val">2026. 5. 27 (수) · 선착순 80명</div>
+        <div class="edu-info-label">신청 기간</div>
+        <div class="edu-info-val">2026. 5. 18 (월) – 5. 27 (수) · 선착순 80명</div>
       </div>
     </div>
     <div class="edu-info-item">
@@ -424,7 +456,35 @@ body {
 
   <!-- STEP 1 -->
   <div class="card">
-    <div class="card-title"><div class="step-num">1</div>기본 정보 입력</div>
+    <div class="card-title">
+      <div class="step-num" style="background:var(--orange);">1</div>
+      개인정보 동의 및 제출
+    </div>
+
+    <div class="agree-wrap" id="agreeWrap" onclick="toggleAgree()">
+      <input type="checkbox" id="agreeCheck" class="agree-checkbox">
+      <div class="agree-box" id="agreeBox">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+      <div class="agree-text">
+        <strong>개인정보 수집·이용에 동의합니다.</strong><br>
+        수집 항목: 이름, 소속기관, 연락처, 이메일, 회원유형, 협회 아이디, 협회 회원번호<br>
+        수집 목적: 보수교육 신청 접수 및 교육비 납부 안내<br>
+        보유 기간: 교육 종료 후 1년간 보관
+      </div>
+    </div>
+    <div class="form-error" id="agree-err" style="margin-top:-12px;margin-bottom:4px;">개인정보 동의는 필수입니다.</div>
+
+    <div class="footer-note" style="padding:12px 0 0;">
+      아래 기본 정보와 교육 선택을 모두 입력하신 뒤 하단의 <strong>신청서 제출하기</strong> 버튼을 눌러주세요.<br>
+      제출 후 담당자가 확인하여 교육비 납부 계좌를 개별 발송합니다.<br>
+      문의: <a href="mailto:ksotoffice@naver.com">ksotoffice@naver.com</a>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card">
+    <div class="card-title"><div class="step-num">2</div>기본 정보 입력</div>
 
     <div class="form-group">
       <label class="form-label" for="name">이름 <span class="req">*</span></label>
@@ -472,15 +532,22 @@ body {
     </div>
 
     <div class="form-group">
-      <label class="form-label" for="memberId">협회 회원번호 <span class="opt">(선택)</span></label>
+      <label class="form-label" for="memberLoginId">협회 아이디 <span class="req">*</span></label>
+      <input class="form-input" type="text" id="memberLoginId" placeholder="협회 홈페이지 로그인 아이디" autocomplete="username">
+      <div class="form-error" id="memberLoginId-err">협회 아이디를 입력해주세요.</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="memberId">협회 회원번호 <span class="req">*</span></label>
       <input class="form-input" type="text" id="memberId" placeholder="회원번호 입력">
+      <div class="form-error" id="memberId-err">협회 회원번호를 입력해주세요.</div>
     </div>
   </div>
 
-  <!-- STEP 2 -->
+  <!-- STEP 3 -->
   <div class="card">
     <div class="card-title">
-      <div class="step-num" style="background:var(--green);">2</div>
+      <div class="step-num" style="background:var(--green);">3</div>
       교육 선택
       <span style="font-size:12px;color:var(--text-light);font-weight:400;margin-left:2px;">중복 선택 가능</span>
     </div>
@@ -524,35 +591,18 @@ body {
     </div>
   </div>
 
-  <!-- STEP 3 -->
-  <div class="card">
-    <div class="card-title">
-      <div class="step-num" style="background:var(--orange);">3</div>
-      개인정보 동의 및 제출
-    </div>
 
-    <div class="agree-wrap" id="agreeWrap" onclick="toggleAgree()">
-      <input type="checkbox" id="agreeCheck" class="agree-checkbox">
-      <div class="agree-box" id="agreeBox">
-        <svg viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-      </div>
-      <div class="agree-text">
-        <strong>개인정보 수집·이용에 동의합니다.</strong><br>
-        수집 항목: 이름, 소속기관, 연락처, 이메일, 회원번호<br>
-        수집 목적: 보수교육 신청 접수 및 교육비 납부 안내<br>
-        보유 기간: 교육 종료 후 1년간 보관
-      </div>
-    </div>
-    <div class="form-error" id="agree-err" style="margin-top:-12px;margin-bottom:14px;">개인정보 동의는 필수입니다.</div>
+</div>
 
+<!-- STICKY SUBMIT FOOTER -->
+<div class="submit-footer">
+  <div class="submit-footer-inner">
+    <div class="submit-footer-meta">
+      <div class="sf-label">납부 예정액</div>
+      <div class="sf-amount" id="sfAmount">회원 유형·교육을 선택해 주세요</div>
+    </div>
     <button class="submit-btn" id="submitBtn" onclick="submitForm()">신청서 제출하기</button>
-
-    <div class="footer-note">
-      제출 후 담당자가 확인하여 교육비 납부 계좌를 개별 발송합니다.<br>
-      문의: <a href="mailto:ksotoffice@naver.com">ksotoffice@naver.com</a>
-    </div>
   </div>
-
 </div>
 
 <div class="toast" id="toast"></div>
@@ -578,8 +628,13 @@ function updatePrice() {
   const content = document.getElementById('priceContent');
   const summary = document.getElementById('priceSummary');
 
+  const sfAmount = document.getElementById('sfAmount');
+
   if (!state.memberType || (!state.morning && !state.afternoon)) {
-    summary.classList.remove('active'); empty.style.display='block'; content.style.display='none'; return;
+    summary.classList.remove('active'); empty.style.display='block'; content.style.display='none';
+    sfAmount.textContent = '회원 유형·교육을 선택해 주세요';
+    sfAmount.classList.add('placeholder'); sfAmount.classList.remove('active');
+    return;
   }
 
   const unit = PRICE[state.memberType];
@@ -592,6 +647,9 @@ function updatePrice() {
   document.getElementById('priceTotal').textContent = total.toLocaleString()+'원';
   document.getElementById('priceBadge').textContent = (state.morning&&state.afternoon)?'종일반':(state.morning?'오전반':'오후반');
   summary.classList.add('active'); empty.style.display='none'; content.style.display='block';
+
+  sfAmount.textContent = total.toLocaleString()+'원';
+  sfAmount.classList.remove('placeholder'); sfAmount.classList.add('active');
 }
 
 function toggleAgree() {
@@ -613,10 +671,12 @@ document.getElementById('phone').addEventListener('input', function(){
 function validate() {
   let ok=true;
   [
-    {id:'name', err:'name-err', check:v=>v.trim().length>=2},
-    {id:'org',  err:'org-err',  check:v=>v.trim().length>=2},
-    {id:'phone',err:'phone-err',check:v=>/^010-\d{4}-\d{4}$/.test(v)},
-    {id:'email',err:'email-err',check:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},
+    {id:'name',          err:'name-err',          check:v=>v.trim().length>=2},
+    {id:'org',           err:'org-err',           check:v=>v.trim().length>=2},
+    {id:'phone',         err:'phone-err',         check:v=>/^010-\d{4}-\d{4}$/.test(v)},
+    {id:'email',         err:'email-err',         check:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},
+    {id:'memberLoginId', err:'memberLoginId-err', check:v=>v.trim().length>=1},
+    {id:'memberId',      err:'memberId-err',      check:v=>v.trim().length>=1},
   ].forEach(f=>{
     const el=document.getElementById(f.id), errEl=document.getElementById(f.err);
     if (!f.check(el.value)) { el.classList.add('error'); errEl.style.display='block'; if(ok){el.scrollIntoView({behavior:'smooth',block:'center'});ok=false;} }
@@ -652,6 +712,7 @@ async function submitForm() {
     phone:document.getElementById('phone').value.trim(),
     email:document.getElementById('email').value.trim(),
     memberType,
+    memberLoginId:document.getElementById('memberLoginId').value.trim(),
     memberId:document.getElementById('memberId').value.trim(),
     morning:state.morning?'Y':'N',
     afternoon:state.afternoon?'Y':'N',
@@ -678,7 +739,7 @@ function goToSchedule() { window.location.href='https://ksot0418.vercel.app/page
 
 function resetForm() {
   document.getElementById('successScreen').classList.remove('show');
-  ['name','org','phone','email','memberId'].forEach(id=>document.getElementById(id).value='');
+  ['name','org','phone','email','memberLoginId','memberId'].forEach(id=>document.getElementById(id).value='');
   document.querySelectorAll('input[name="memberType"]').forEach(r=>r.checked=false);
   state.morning=false; state.afternoon=false; state.memberType=null;
   ['morning','afternoon'].forEach(t=>document.getElementById('card-'+t).classList.remove('selected-'+t));
