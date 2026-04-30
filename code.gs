@@ -1,10 +1,10 @@
 /**
  * 대한작업치료학회 보수교육 신청 - Google Apps Script
- * 
+ *
  * 사용법:
- * 1. Google Sheets 열기 → 확장 프로그램 → Apps Script
+ * 1. Google Sheets 열기 -> 확장 프로그램 -> Apps Script
  * 2. 이 코드 전체 붙여넣기 후 저장
- * 3. 배포 → 새 배포 → 웹 앱 → 액세스: 모든 사용자 → 배포
+ * 3. 배포 -> 배포 관리 -> 새 버전 배포
  * 4. 웹 앱 URL을 index.html의 GAS_URL 상수에 입력
  */
 
@@ -88,10 +88,6 @@ function doPost(e) {
       data.eduList       || '',
       data.totalAmt      || '',
     ]);
-
-    // 중복 신청 체크 (같은 이메일+교육 조합)
-    // 필요 시 활성화
-    // checkDuplicate(sheet, data);
 
     return ContentService
       .createTextOutput(JSON.stringify({ success: true, message: '신청이 완료되었습니다.' }))
