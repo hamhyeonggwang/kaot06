@@ -407,6 +407,46 @@ select.form-input:invalid { color:var(--text-light); }
 }
 .toast.show { transform:translateX(-50%) translateY(0); }
 
+/* D-DAY POPUP */
+.dday-modal {
+  display:none; position:fixed; inset:0; z-index:180;
+  background:rgba(26,53,94,.58); backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  align-items:center; justify-content:center; padding:24px;
+}
+.dday-modal.show { display:flex; }
+.dday-card {
+  width:100%; max-width:380px; background:white; border-radius:24px;
+  padding:28px 24px 24px; text-align:center; box-shadow:var(--shadow-lg);
+  animation:popModal .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popModal{from{opacity:0;transform:translateY(16px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+.dday-eyebrow {
+  display:inline-block; padding:5px 12px; border-radius:20px;
+  background:var(--orange-light); color:var(--orange);
+  font-size:11px; font-weight:800; letter-spacing:.06em; margin-bottom:12px;
+}
+.dday-number {
+  font-family:var(--font-head); font-size:52px; font-weight:900;
+  color:var(--blue); line-height:1; margin-bottom:10px;
+}
+.dday-title {
+  font-family:var(--font-head); font-size:20px; font-weight:900;
+  color:var(--navy); margin-bottom:8px;
+}
+.dday-desc {
+  font-size:13px; color:var(--text-mid); line-height:1.7; margin-bottom:18px;
+}
+.dday-date {
+  background:var(--blue-light); color:var(--blue); border-radius:14px;
+  padding:12px 14px; font-size:13px; font-weight:700; margin-bottom:18px;
+}
+.dday-close {
+  width:100%; padding:14px; border:none; border-radius:14px;
+  background:var(--navy); color:white; font-family:var(--font-head);
+  font-size:14px; font-weight:700; cursor:pointer;
+}
+
 @media(max-width:480px){
   .page-wrap { padding:16px 12px 60px; }
   .card { padding:20px 16px; }
@@ -418,6 +458,21 @@ select.form-input:invalid { color:var(--text-light); }
 <body>
 
 <div class="bg-deco"><span></span><span></span><span></span><span></span></div>
+
+<!-- D-DAY POPUP -->
+<div class="dday-modal" id="ddayModal" role="dialog" aria-modal="true" aria-labelledby="ddayTitle">
+  <div class="dday-card">
+    <div class="dday-eyebrow">신청 오픈 예정</div>
+    <div class="dday-number" id="ddayNumber">D-</div>
+    <div class="dday-title" id="ddayTitle">보수교육 신청까지 남은 시간</div>
+    <div class="dday-desc">
+      현재는 신청 기간 전입니다.<br>
+      신청은 2026년 5월 18일부터 가능합니다.
+    </div>
+    <div class="dday-date">신청 기간: 2026. 5. 18 (월) - 5. 27 (수)</div>
+    <button class="dday-close" type="button" onclick="closeDdayModal()">확인했습니다</button>
+  </div>
+</div>
 
 <!-- SUCCESS -->
 <div class="success-screen" id="successScreen">
@@ -715,6 +770,29 @@ select.form-input:invalid { color:var(--text-light); }
 const state = { morning:false, afternoon:false, memberType:null };
 const PRICE  = { '정회원':60000, '준회원':76000 };
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzjvuJsDudA1HFHKHoD6GX1JUuPGTmtKyGDxYSHwAYWoYfRkZocV4SorFqAiIVYVup0/exec';
+const APPLICATION_START_DATE = new Date(2026, 4, 18);
+
+function getTodayStart() {
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+}
+
+function getDaysUntilApplicationStart() {
+  const msPerDay = 24 * 60 * 60 * 1000;
+  return Math.ceil((APPLICATION_START_DATE - getTodayStart()) / msPerDay);
+}
+
+function openDdayModalIfNeeded() {
+  const daysLeft = getDaysUntilApplicationStart();
+  if (daysLeft <= 0) return;
+
+  document.getElementById('ddayNumber').textContent = `D-${daysLeft}`;
+  document.getElementById('ddayModal').classList.add('show');
+}
+
+function closeDdayModal() {
+  document.getElementById('ddayModal').classList.remove('show');
+}
 
 function toggleEdu(type) {
   state[type] = !state[type];
@@ -938,6 +1016,7 @@ function resetForm() {
 }
 
 updateSubmitState();
+openDdayModalIfNeeded();
 </script>
 </body>
 </html>
