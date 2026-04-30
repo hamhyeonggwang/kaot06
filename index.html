@@ -645,18 +645,7 @@ select.form-input:invalid { color:var(--text-light); }
       <input class="form-input" type="text" id="memberId" placeholder="회원번호 입력">
       <div class="form-error" id="memberId-err">협회 회원번호를 입력해주세요.</div>
     </div>
-
-    <div class="form-group">
-      <label class="form-label" for="memberGrade">협회 회원등급 <span class="req">*</span></label>
-      <select class="form-input" id="memberGrade" required>
-        <option value="" disabled selected>협회 회원등급을 선택해주세요</option>
-        <option value="평생회원">평생회원</option>
-        <option value="정회원">정회원</option>
-        <option value="준회원">준회원</option>
-        <option value="기타">기타</option>
-      </select>
-      <div class="form-error" id="memberGrade-err">협회 회원등급을 선택해주세요.</div>
-    </div>
+   
   </div>
 
   <!-- STEP 3 -->
@@ -725,7 +714,7 @@ select.form-input:invalid { color:var(--text-light); }
 <script>
 const state = { morning:false, afternoon:false, memberType:null };
 const PRICE  = { '정회원':60000, '준회원':76000 };
-const GAS_URL = 'https://script.google.com/macros/s/YOUR_GAS_DEPLOYMENT_ID/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzjvuJsDudA1HFHKHoD6GX1JUuPGTmtKyGDxYSHwAYWoYfRkZocV4SorFqAiIVYVup0/exec';
 
 function toggleEdu(type) {
   state[type] = !state[type];
