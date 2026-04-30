@@ -841,9 +841,31 @@ async function submitForm() {
     eduList:[state.morning?'오전반(발달평가)':'',state.afternoon?'오후반(감각통합)':''].filter(Boolean).join(', '),
     totalAmt:totalAmt.toLocaleString()+'원',
   };
-  try { await fetch(GAS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); } catch(e){}
-  btn.classList.remove('loading'); btn.disabled=false; btn.textContent='신청서 제출하기';
-  showSuccess(payload);
+  try {
+    await postToGoogleSheet(payload);
+    showSuccess(payload);
+  } catch(e) {
+    showToast('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+  } finally {
+    btn.classList.remove('loading'); btn.disabled=false; btn.textContent='신청서 제출하기';
+  }
+}
+
+async function postToGoogleSheet(payload) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+  try {
+    await fetch(GAS_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload),
+      signal:controller.signal,
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 function showSuccess(data) {
@@ -856,6 +878,13 @@ function showSuccess(data) {
     <div class="success-summary-row"><span class="s-key">납부 예정액</span><span class="s-val">${data.totalAmt}</span></div>
   `;
   document.getElementById('successScreen').classList.add('show');
+}
+
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
 function goToSchedule() { window.location.href='https://ksot0418.vercel.app/pages/education.html#ce-schedule'; }
