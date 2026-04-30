@@ -538,7 +538,7 @@ select.form-input:invalid { color:var(--text-light); }
       </div>
       <div class="agree-text">
         <strong>개인정보 수집·이용에 동의합니다.</strong><br>
-        수집 항목: 이름, 소속기관, 임상경력, 임상분야, 연락처, 이메일, 회원유형, 협회 아이디, 협회 회원번호, 협회 회원등급<br>
+        수집 항목: 이름, 소속기관, 임상경력, 임상분야, 연락처, 이메일, 회원유형, 협회 아이디, 협회 회원번호<br>
         수집 목적: 보수교육 신청 접수 및 교육비 납부 안내<br>
         보유 기간: 교육 종료 후 1년간 보관
       </div>
@@ -705,7 +705,7 @@ select.form-input:invalid { color:var(--text-light); }
       <div class="sf-label">납부 예정액</div>
       <div class="sf-amount" id="sfAmount">회원 유형·교육을 선택해 주세요</div>
     </div>
-    <button class="submit-btn" id="submitBtn" type="button" onclick="submitForm()">신청서 제출하기</button>
+    <button class="submit-btn" id="submitBtn" type="button" onclick="submitForm()" disabled>신청서 제출하기</button>
   </div>
 </div>
 
@@ -723,6 +723,7 @@ function toggleEdu(type) {
   else             card.classList.remove('selected-' + type);
   document.getElementById('edu-err').style.display = 'none';
   updatePrice();
+  updateSubmitState();
 }
 
 function updatePrice() {
@@ -762,6 +763,7 @@ function toggleAgree() {
   cb.checked = !cb.checked;
   wrap.classList.toggle('checked', cb.checked);
   document.getElementById('agree-err').style.display = 'none';
+  updateSubmitState();
 }
 
 function toggleConfirm() {
@@ -770,6 +772,7 @@ function toggleConfirm() {
   cb.checked = !cb.checked;
   wrap.classList.toggle('checked', cb.checked);
   document.getElementById('confirm-err').style.display = 'none';
+  updateSubmitState();
 }
 
 document.getElementById('phone').addEventListener('input', function(){
@@ -778,6 +781,41 @@ document.getElementById('phone').addEventListener('input', function(){
   if (v.length>7)      v=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7);
   else if (v.length>3) v=v.slice(0,3)+'-'+v.slice(3);
   this.value=v;
+  updateSubmitState();
+});
+
+function isFormReady() {
+  const requiredFields = [
+    {id:'name',          check:v=>v.trim().length>=2},
+    {id:'org',           check:v=>v.trim().length>=2},
+    {id:'experience',    check:v=>v!=='' && !isNaN(+v) && +v>=0 && +v<=60},
+    {id:'clinicalField', check:v=>v!==''},
+    {id:'phone',         check:v=>/^010-\d{4}-\d{4}$/.test(v)},
+    {id:'email',         check:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},
+    {id:'memberLoginId', check:v=>v.trim().length>=1},
+    {id:'memberId',      check:v=>v.trim().length>=1},
+  ];
+
+  const fieldsValid = requiredFields.every(f => {
+    const el = document.getElementById(f.id);
+    return el && f.check(el.value);
+  });
+
+  return fieldsValid
+    && !!document.querySelector('input[name="memberType"]:checked')
+    && (state.morning || state.afternoon)
+    && document.getElementById('agreeCheck').checked
+    && document.getElementById('confirmCheck').checked;
+}
+
+function updateSubmitState() {
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = !isFormReady();
+}
+
+document.querySelectorAll('input, select').forEach(el => {
+  el.addEventListener('input', updateSubmitState);
+  el.addEventListener('change', updateSubmitState);
 });
 
 function validate() {
@@ -791,7 +829,6 @@ function validate() {
     {id:'email',         err:'email-err',         check:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},
     {id:'memberLoginId', err:'memberLoginId-err', check:v=>v.trim().length>=1},
     {id:'memberId',      err:'memberId-err',      check:v=>v.trim().length>=1},
-    {id:'memberGrade',   err:'memberGrade-err',   check:v=>v!==''},
   ].forEach(f=>{
     const el=document.getElementById(f.id), errEl=document.getElementById(f.err);
     if (!f.check(el.value)) { el.classList.add('error'); errEl.style.display='block'; if(ok){el.scrollIntoView({behavior:'smooth',block:'center'});ok=false;} }
@@ -816,7 +853,7 @@ function validate() {
   return ok;
 }
 
-function submitForm() {
+async function submitForm() {
   if (!validate()) return;
   const btn=document.getElementById('submitBtn');
   btn.classList.add('loading'); btn.disabled=true; btn.textContent='제출 중...';
@@ -835,51 +872,31 @@ function submitForm() {
     memberType,
     memberLoginId:document.getElementById('memberLoginId').value.trim(),
     memberId:document.getElementById('memberId').value.trim(),
-    memberGrade:document.getElementById('memberGrade').value,
     morning:state.morning?'Y':'N',
     afternoon:state.afternoon?'Y':'N',
     eduList:[state.morning?'오전반(발달평가)':'',state.afternoon?'오후반(감각통합)':''].filter(Boolean).join(', '),
     totalAmt:totalAmt.toLocaleString()+'원',
   };
   try {
-    postToGoogleSheet(payload);
+    await postToGoogleSheet(payload);
     showSuccess(payload);
   } catch(e) {
     showToast('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
   } finally {
     btn.classList.remove('loading'); btn.disabled=false; btn.textContent='신청서 제출하기';
+    updateSubmitState();
   }
 }
 
 function postToGoogleSheet(payload) {
-  const targetName = 'gas-submit-frame';
-  let iframe = document.querySelector(`iframe[name="${targetName}"]`);
-
-  if (!iframe) {
-    iframe = document.createElement('iframe');
-    iframe.name = targetName;
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-  }
-
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = GAS_URL;
-  form.target = targetName;
-  form.acceptCharset = 'UTF-8';
-  form.style.display = 'none';
-
-  Object.keys(payload).forEach(key => {
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = key;
-    input.value = payload[key];
-    form.appendChild(input);
+  return fetch(GAS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    },
+    body: new URLSearchParams(payload).toString(),
   });
-
-  document.body.appendChild(form);
-  form.submit();
-  form.remove();
 }
 
 function showSuccess(data) {
@@ -907,8 +924,7 @@ function resetForm() {
   document.getElementById('successScreen').classList.remove('show');
   ['name','org','experience','phone','email','memberLoginId','memberId']
     .forEach(id=>document.getElementById(id).value='');
-  ['clinicalField','memberGrade']
-    .forEach(id=>document.getElementById(id).selectedIndex=0);
+  document.getElementById('clinicalField').selectedIndex=0;
   document.querySelectorAll('input[name="memberType"]').forEach(r=>r.checked=false);
   state.morning=false; state.afternoon=false; state.memberType=null;
   ['morning','afternoon'].forEach(t=>document.getElementById('card-'+t).classList.remove('selected-'+t));
@@ -917,8 +933,11 @@ function resetForm() {
   document.getElementById('confirmCheck').checked=false;
   document.getElementById('confirmWrap').classList.remove('checked');
   updatePrice();
+  updateSubmitState();
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+updateSubmitState();
 </script>
 </body>
 </html>
